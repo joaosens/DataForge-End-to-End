@@ -16,7 +16,7 @@ def normalize_cities(df, city_col, state_col) -> pd.Series:
     city_state = df.groupby("city_clean")[state_col].agg(lambda x: x.mode()[0])
     city_freq = df["city_clean"].value_counts()
     mapping = {}
-     # 'Blocking' strategy to reduce complexity from O(n²) to O(k * n/k²) by grouping cities by first letter.
+    # 'Blocking' strategy to reduce complexity from O(n²) to O(k * n/k²) by grouping cities by first letter.
     for _, group in city_series.groupby(city_series.str[0]):
         group_list = group.tolist()
         for city in group_list:
@@ -39,5 +39,4 @@ def normalize_cities(df, city_col, state_col) -> pd.Series:
     # Apply mapping to replace all variant city names with their canonical form.
     return df["city_clean"].replace(mapping)
 
-def validate_cities_and_states(df):
-    ARR_STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
+    
